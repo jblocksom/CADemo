@@ -7,12 +7,14 @@
 //
 
 #import "BNRViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BNRViewController ()
 
 @end
 
 @implementation BNRViewController
+@synthesize chaseButton;
 
 - (void)viewDidLoad
 {
@@ -22,6 +24,7 @@
 
 - (void)viewDidUnload
 {
+    [self setChaseButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -33,6 +36,26 @@
     } else {
         return YES;
     }
+}
+
+- (IBAction)startChase:(id)sender {
+    // Get the button's layer
+    CALayer *buttonLayer = self.chaseButton.layer;
+    [CATransaction begin];
+    
+    // Demo 1: Falling
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    [anim setToValue:[NSNumber numberWithFloat:500.0]];
+    [anim setDuration:1.0f];
+    [buttonLayer addAnimation:anim forKey:@"moveit"];
+
+    // Demo 2: Spinning
+    CABasicAnimation *anim2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [anim2 setToValue:[NSNumber numberWithFloat:0.0]];
+    [anim2 setDuration:1.0f];
+    [buttonLayer addAnimation:anim2 forKey:@"disappear"];
+
+    [CATransaction commit];
 }
 
 @end

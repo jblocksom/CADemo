@@ -10,4 +10,8 @@
 
 @interface BNRViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *chaseButton;
+
+- (IBAction)startChase:(id)sender;
+
 @end
